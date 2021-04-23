@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+import Vuex from 'vuex'
+import store from './store'
+import StuCenter from "@/components/StuMain/StuCenter";
 // eslint-disable-next-line no-unused-vars
 import router from './router';
 import './assets/css/global.css';
@@ -51,8 +54,14 @@ import {
     Tooltip,
 } from 'muse-ui';
 import 'muse-ui/lib/styles/theme.less';
+import axios from "axios";
+import 'muse-ui-loading/dist/muse-ui-loading.css';
+import Loading from 'muse-ui-loading';
 
-Vue.config.productionTip = false
+Vue.prototype.$axios = axios;
+axios.defaults.withCredentails = true;
+Vue.config.productionTip = false;
+
 
 Vue.use(Helpers);
 Vue.use(Alert);
@@ -98,9 +107,12 @@ Vue.use(Switch);
 Vue.use(Tabs);
 Vue.use(TextField);
 Vue.use(Tooltip);
-
-
+Vue.use(store);
+Vue.use(Vuex);
+Vue.use(StuCenter);
+Vue.use(Loading);
 new Vue({
-  render: h => h(App),
-  router//与3.0不同 必须是router 3.0是routes
+    render: h => h(App),
+    store:store,
+    router,//与3.0不同 必须是router 3.0是routes
 }).$mount('#app')

@@ -17,23 +17,23 @@
   </mu-carousel-item>
 </mu-carousel>
   <mu-container>
-    <mu-paper class="login_box" z-depth="5"></mu-paper>
+    <mu-paper class="login_box"></mu-paper>
   </mu-container>
   <mu-container class="login_input">
     <mu-form ref="form" :model="validateForm" >
-      <mu-form-item label="账户" icon="account_circle" help-text="" prop="username" :rules="usernameRules" class="username">
-        <mu-text-field v-model="validateForm.username" prop="username" class="login_username_input"></mu-text-field>
-<!--        <mu-text-field v-model="validateForm.username" prop="username" label="UserName" label-float help-text="用户名为6-12长度的字符" icon="account_circle" class="login_username_input"></mu-text-field><br/>-->
+      <mu-form-item :rules="idRules" class="id" icon="account_circle" label="账户" prop="id">
+        <mu-text-field v-model="validateForm.id" class="login_username_input" prop="username"></mu-text-field>
+<!--        一开始写错了，id=username。。-->
       </mu-form-item>
       <mu-form-item label="密码" icon="locked" prop="password" :rules="passwordRules" class="password">
-        <mu-text-field type="password" v-model="validateForm.password" prop="password"></mu-text-field>
+        <mu-text-field v-model="validateForm.password" prop="Password" type="password"></mu-text-field>
       </mu-form-item>
 <!--      <mu-form-item prop="isAgree" :rules="argeeRules">-->
-<!--        <mu-checkbox label="同意用户协议" v-model="validateForm.isAgree"></mu-checkbox>-->
 <!--      </mu-form-item>-->
-      <router-link to ='/help'><mu-form-item label="忘记密码？" class="help">
-      </mu-form-item></router-link>
-<!--      后面添加跳转链接 跳转到帮助页面-->
+      <router-link to ='/help'>
+        <mu-form-item class="help" label="忘记密码？">
+      </mu-form-item>
+      </router-link>
       <mu-form-item>
         <mu-button color="primary" @click="login" class="login_button demo-1">登录</mu-button>
         <mu-button @click="clear" class="clear_button demo-2">重置</mu-button>
@@ -43,47 +43,87 @@
   </mu-container>
 </div>
 </template>
+window.location.hash="no-back";
+window.location.hash="Again-No-back-button";
+window.onhashchange=function(){window.location.hash="no-back";}
 
 <script>
 import login_bg1 from 'D:/VUE/muse_test/src/assets/images/login_bg1.jpg';
 import login_bg2 from 'D:/VUE/muse_test/src/assets/images/login_bg2.jpg';
 import login_bg3 from 'D:/VUE/muse_test/src/assets/images/login_bg3.jpg';
 import login_bg4 from 'D:/VUE/muse_test/src/assets/images/login_bg4.jpg';
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-
+Vue.use(Vuex)
 export default {
+
    // name: "Login"
   data () {
     return {
       login_bg1,login_bg2,login_bg3,login_bg4,
-      usernameRules: [
+
+      idRules: [
         { validate: (val) => !!val, message: '必须填写账户'},
-        { validate: (val) => val.length >= 3, message: '账户长度大于3'}//用户名规则要改
+       // { validate: (val) => val.length >= 3, message: '账户长度大于3'}//用户名规则要改
       ],
       passwordRules: [
         { validate: (val) => !!val, message: '必须填写密码'},
-        { validate: (val) => val.length >= 3 && val.length <= 10, message: '密码长度大于3小于10'}
+        { validate: (val) => val.length >= 3 && val.length <= 15, message: '密码长度大于3小于15'}
       ],
-      // argeeRules: [{ validate: (val) => !!val, message: '必须同意用户协议'}],
       validateForm: {
-        username: '',
+        id: '',
         password: '',
-        // isAgree: false
       },
 
     }
   },
   methods: {
     login () {
+      //const _this=this
       this.$refs.form.validate().then((result) => {
-        console.log('form valid: ', result)
+        if(result){
+          this.$axios.post('http://localhost:8081/login_server', this.validateForm).then(
+              res=>{
+                let _data=res.data;
+                let _this=this;
+                let token=res.headers['authorization'];
+                if(_data==null){
+                    alert("登陆失败，请检查用户名和密码是否有误")
+                }
+                else{
+                  _this.$store.commit('SET_TOKEN', token)
+                }
+                if(_data.code===200) {
+                  localStorage.setItem('password',this.validateForm.password);
+                  if (_data.data.kind === 1) {
+                    this.$router.push({path: '/adminMain'});
+                  } else if (_data.data.kind === 2) {
+                    this.$axios.post('http://localhost:8081/student', this.validateForm).then(//获取完整用户信息
+                        res=>{
+                          console.log(res)
+                          let _thisStu=this;
+                          let token=res.headers['authorization'];
+                            _thisStu.$store.commit('SET_TOKEN', token);
+                            _thisStu.$store.commit('SET_USERINFO', res.data.data);
+                          })
+                    this.$router.push({path: '/stuMain'});
+                    return false;
+                  } else if (_data.data.kind === 3) {
+                    this.$router.push({path: '/teaMain'});
+                  }
+                }
+              }
+          )
+        }
+        else alert("登陆失败");
       });
     },
     clear () {
       this.$refs.form.clear();
       this.validateForm = {
-        username: '',
-        password: '',
+        id: '',
+        Password: '',
         isAgree: false
       };
     }

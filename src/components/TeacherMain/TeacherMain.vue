@@ -42,6 +42,7 @@
 
 <script>
 import schlogo from "D:/VUE/muse_test/src/assets/images/schlogo.png";
+
 export default {
 // name: "TeacherMain"
   data(){
@@ -50,8 +51,6 @@ export default {
       docked: false,
       open: false,
       position: 'left',
-
-
     }
   }
 }

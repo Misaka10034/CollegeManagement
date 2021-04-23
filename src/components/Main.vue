@@ -8,7 +8,7 @@
 import schlogo from "D:/VUE/muse_test/src/assets/images/schlogo.png";
 import StuMainDrawer from "@/components/StuMain/StuMain";
 //import TeacherMainDrawer from "@/components/TeacherMain/TeacherMainDrawer";
-//import ManagerMainDrawer from "@/components/ManagerMain/ManagerMainDrawer";
+//import ManagerMainDrawer from "@/components/AdminMain/ManagerMainDrawer";
 
 export default {
 // name: "Main"

@@ -42,8 +42,9 @@
 
 <script>
 import schlogo from "D:/VUE/muse_test/src/assets/images/schlogo.png";
+
 export default {
-// name: "ManagerMain"
+// name: "AdminMain"
   data(){
     return{
       schlogo,
