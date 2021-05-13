@@ -7,6 +7,8 @@ import StuCenter from "@/components/StuMain/StuCenter";
 import router from './router';
 import './assets/css/global.css';
 import 'muse-ui/lib/styles/base.less';
+import Message from 'muse-ui-message';
+import './axios.js' // 请求拦截
 //import Helpers from 'muse-ui/lib/Helpers';
 import {
     Alert,
@@ -57,7 +59,10 @@ import 'muse-ui/lib/styles/theme.less';
 import axios from "axios";
 import 'muse-ui-loading/dist/muse-ui-loading.css';
 import Loading from 'muse-ui-loading';
-
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
 Vue.prototype.$axios = axios;
 axios.defaults.withCredentails = true;
 Vue.config.productionTip = false;
@@ -111,6 +116,7 @@ Vue.use(store);
 Vue.use(Vuex);
 Vue.use(StuCenter);
 Vue.use(Loading);
+Vue.prototype.$message=Message;
 new Vue({
     render: h => h(App),
     store:store,

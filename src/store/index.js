@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+
 Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
@@ -10,7 +11,7 @@ export default new Vuex.Store({
     mutations: {
         SET_TOKEN: (state, token) => {
             state.token = token
-            localStorage.setItem("token", token)
+            sessionStorage.setItem("token", token)
         },
         REMOVE_INFO: (state) => {
             localStorage.setItem("token", '')
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     getters: {
         getUser: state => {
             return state.userInfo
+        },
+        getToken: state => {
+            return state.token;
         }
     },
     actions: {},

@@ -19,38 +19,38 @@
         <mu-text-field v-model="form.password" ></mu-text-field>
       </mu-form-item>
       <mu-form-item label="姓名:">
-        <mu-text-field v-model="form.name" :disabled=true prop="name"></mu-text-field>
+        <mu-text-field v-model="form.name" :disabled=this.disanbleedit prop="name"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="生日:">
-        <mu-text-field v-model="form.birth" :disabled=true prop="birth"></mu-text-field>
+        <mu-date-input v-model="form.birth" :disabled=this.disanbleedit container="dialog" full-width label-float prop="birth"></mu-date-input>
       </mu-form-item>
       <mu-form-item label="性别" prop="sex">
-        <mu-radio v-model="form.sex" :disabled=true :value="0" label="男"></mu-radio>
-        <mu-radio v-model="form.sex" :disabled=true :value="1" class="radio_right" label="女"></mu-radio>
+        <mu-radio v-model="form.sex" :disabled=this.disanbleedit :value="0" label="男"></mu-radio>
+        <mu-radio v-model="form.sex" :disabled=this.disanbleedit :value="1" class="radio_right" label="女"></mu-radio>
       </mu-form-item>
       <mu-form-item label="家庭地址:">
-        <mu-text-field v-model="form.address" :disabled=true prop="address"></mu-text-field>
+        <mu-text-field v-model="form.address" :disabled=this.disanbleedit prop="address"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="年级:">
-        <mu-text-field v-model="form.grade" :disabled=true prop="grade"></mu-text-field>
+        <mu-text-field v-model="form.grade" :disabled=this.disanbleedit prop="grade"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="专业:">
-        <mu-text-field v-model="form.major" :disabled=true prop="major"></mu-text-field>
+        <mu-text-field v-model="form.major" :disabled=this.disanbleedit prop="major"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="班级职务:">
-        <mu-text-field v-model="form.position" :disabled=true prop="position"></mu-text-field>
+        <mu-text-field v-model="form.position" :disabled=this.disanbleedit prop="position"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="入学年份:">
-        <mu-text-field v-model="form.admissionTime" :disabled=true prop="admissionTime"></mu-text-field>
+        <mu-text-field v-model="form.admissionTime" :disabled=this.disanbleedit prop="admissionTime"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="预期毕业年份:">
-        <mu-text-field v-model="form.graduationTime" :disabled=true prop="graduationTime"></mu-text-field>
+        <mu-text-field v-model="form.graduationTime" :disabled=this.disanbleedit prop="graduationTime"></mu-text-field>
       </mu-form-item>
       <mu-form-item label="社保帐号:">
-        <mu-text-field v-model="form.siid" :disabled=true prop="siid"></mu-text-field>
+        <mu-text-field v-model="form.siid" :disabled=this.disanbleedit prop="siid"></mu-text-field>
       </mu-form-item>
       <mu-form-item :rules="phoneNumberRules" label="联系方式:" prop="phoneNumber">
-        <mu-text-field v-model="form.phoneNumber" :disabled=false prop="phoneNumber"></mu-text-field>
+        <mu-text-field v-model="form.phoneNumber" prop="phoneNumber"></mu-text-field>
       </mu-form-item>
     </mu-form>
     <mu-button class="submit" color="#2196f3" @click="submit">提交修改</mu-button>
@@ -70,6 +70,7 @@ export default {
       head:'data:image/png;base64,'+this.$store.getters.getUser.head,
       newhead:'',
       newhead64:this.$store.getters.getUser.head,
+      disanbleedit:'',
       passwordRules: [
         { validate: (val) => !!val, message: '必须填写密码'},
         { validate: (val) => val.length >= 3 && val.length <= 15, message: '密码长度大于3小于15'}
@@ -136,18 +137,22 @@ export default {
             graduationTime: this.form.graduationTime,
             head:this.newhead64,
             siid:this.form.siid,
+            registered:true
           }
           this.$axios.post('http://localhost:8081/student/stuedit',formData,
           {
             headers: {
-              "Authorization": localStorage.getItem("token")
+              "Authorization": this.$store.getters.getToken
             }
           })
-              // eslint-disable-next-line no-unused-vars
-          .then((res=>{
-            this.$router.push({path: '/login'}
-          )}
-          ))
+          .then(res=>{
+            if(res.data.code===200){
+              this.$alert("修改成功，请重新登录");
+              this.$router.push({path: '/login'});
+            }
+            else this.$alert("修改失败！");
+              }
+          )
         }
       }
       )
@@ -172,6 +177,9 @@ export default {
           })
         }
       }
+  },
+  mounted() {
+    this.disanbleedit=this.$store.state.userInfo.registered;
   }
 }
 </script>
@@ -213,7 +221,6 @@ export default {
   position: absolute;
   top: -15px;
   left: -15px;
-
 }
 .conImage{
 

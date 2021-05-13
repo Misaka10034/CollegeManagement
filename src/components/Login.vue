@@ -88,7 +88,7 @@ export default {
                 let _data=res.data;
                 let _this=this;
                 let token=res.headers['authorization'];
-                if(_data==null){
+                if(_data==null||res.data.code===400){
                     alert("登陆失败，请检查用户名和密码是否有误")
                 }
                 else{
@@ -97,11 +97,18 @@ export default {
                 if(_data.code===200) {
                   localStorage.setItem('password',this.validateForm.password);
                   if (_data.data.kind === 1) {
+                    this.$axios.post('http://localhost:8081/admin', this.validateForm).then(//获取完整用户信息
+                        res=>{
+                          let _thisAdm=this;
+                          let token=res.headers['authorization'];
+                          _thisAdm.$store.commit('SET_TOKEN', token);
+                          _thisAdm.$store.commit('SET_USERINFO', res.data.data);
+                        })
                     this.$router.push({path: '/adminMain'});
+                    return false;
                   } else if (_data.data.kind === 2) {
                     this.$axios.post('http://localhost:8081/student', this.validateForm).then(//获取完整用户信息
                         res=>{
-                          console.log(res)
                           let _thisStu=this;
                           let token=res.headers['authorization'];
                             _thisStu.$store.commit('SET_TOKEN', token);
@@ -110,7 +117,15 @@ export default {
                     this.$router.push({path: '/stuMain'});
                     return false;
                   } else if (_data.data.kind === 3) {
+                    this.$axios.post('http://localhost:8081/teacher', this.validateForm).then(//获取完整用户信息
+                        res=>{
+                          let _thisTea=this;
+                          let token=res.headers['authorization'];
+                          _thisTea.$store.commit('SET_TOKEN', token);
+                          _thisTea.$store.commit('SET_USERINFO', res.data.data);
+                        })
                     this.$router.push({path: '/teaMain'});
+                    return false;
                   }
                 }
               }
