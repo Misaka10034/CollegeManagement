@@ -1,0 +1,245 @@
+<html>
+<head>
+<title>StuCenter.vue</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #bababa;}
+.s3 { color: #a5c261;}
+.s4 { color: #a9b7c6;}
+.s5 { color: #cc7832;}
+.s6 { color: #6897bb;}
+.s7 { color: #808080;}
+.s8 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table BGCOLOR="#606060" CELLPADDING=5 CELLSPACING=0 COLS=1 WIDTH="100%" >
+<tr><td><center>
+<font color="#000000" face="Arial, Helvetica">
+StuCenter.vue</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;template&gt;</span>
+  <span class="s0">&lt;mu-container </span><span class="s2">class</span><span class="s3">=&quot;mu-form-container&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;mu-form </span><span class="s2">ref</span><span class="s3">=&quot;form&quot; </span><span class="s2">:model</span><span class="s3">=&quot;</span><span class="s1">form</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;mu-form&quot; </span><span class="s2">label-width</span><span class="s3">=&quot;100&quot; </span><span class="s2">style</span><span class="s3">=&quot;margin-right: 16px;&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;ID:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.id</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">id</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;头像:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;img </span><span class="s2">:src</span><span class="s3">=&quot;</span><span class="s1">head</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;上传头像&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div&gt;</span>
+          <span class="s0">&lt;mu-button </span><span class="s2">class</span><span class="s3">=&quot;falsebutton&quot;</span><span class="s0">&gt;</span><span class="s4">上传头像</span><span class="s0">&lt;/mu-button&gt;</span>
+          <span class="s0">&lt;input </span><span class="s2">id</span><span class="s3">=&quot;file&quot; </span><span class="s2">accept</span><span class="s3">=&quot;image/*&quot; </span><span class="s2">class</span><span class="s3">=&quot;input-button&quot; </span><span class="s2">type</span><span class="s3">=&quot;file&quot; </span><span class="s2">@change</span><span class="s3">=&quot;</span><span class="s1">upload($event)</span><span class="s3">&quot; </span><span class="s2">v-on:change</span><span class="s3">=&quot;</span><span class="s1">newhead</span><span class="s3">&quot;</span><span class="s0">/&gt;</span>
+          <span class="s0">&lt;mu-alert </span><span class="s2">v-show</span><span class="s3">=&quot;</span><span class="s1">newheadalert</span><span class="s3">&quot; </span><span class="s2">color</span><span class="s3">=&quot;error&quot; </span><span class="s2">transition</span><span class="s3">=&quot;mu-scale-transition&quot;</span><span class="s0">&gt;</span><span class="s4">请选择宽高均小于40像素的图片,继续提交将清空当前头像</span><span class="s0">&lt;/mu-alert&gt;</span>
+          <span class="s0">&lt;img </span><span class="s2">v-show</span><span class="s3">=&quot;</span><span class="s1">newhead</span><span class="s3">&quot; </span><span class="s2">:src</span><span class="s3">=&quot;</span><span class="s1">newhead</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">:rules</span><span class="s3">=&quot;</span><span class="s1">passwordRules</span><span class="s3">&quot; </span><span class="s2">label</span><span class="s3">=&quot;密码:&quot; </span><span class="s2">prop</span><span class="s3">=&quot;password&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.password</span><span class="s3">&quot; </span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;姓名:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.name</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">name</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;生日:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.birth</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">birth</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;性别&quot; </span><span class="s2">prop</span><span class="s3">=&quot;sex&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-radio </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.sex</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">:value</span><span class="s3">=&quot;</span><span class="s6">0</span><span class="s3">&quot; </span><span class="s2">label</span><span class="s3">=&quot;男&quot;</span><span class="s0">&gt;&lt;/mu-radio&gt;</span>
+        <span class="s0">&lt;mu-radio </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.sex</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">:value</span><span class="s3">=&quot;</span><span class="s6">1</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;radio_right&quot; </span><span class="s2">label</span><span class="s3">=&quot;女&quot;</span><span class="s0">&gt;&lt;/mu-radio&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;家庭地址:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.address</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">address</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;年级:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.grade</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">grade</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;专业:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.major</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">major</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;班级职务:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.position</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">position</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;入学年份:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.admissionTime</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">admissionTime</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;预期毕业年份:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.graduationTime</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">graduationTime</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">label</span><span class="s3">=&quot;社保帐号:&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.siid</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">true </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">siid</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+      <span class="s0">&lt;mu-form-item </span><span class="s2">:rules</span><span class="s3">=&quot;</span><span class="s1">phoneNumberRules</span><span class="s3">&quot; </span><span class="s2">label</span><span class="s3">=&quot;联系方式:&quot; </span><span class="s2">prop</span><span class="s3">=&quot;phoneNumber&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-text-field </span><span class="s2">v-model</span><span class="s3">=&quot;</span><span class="s1">form.phoneNumber</span><span class="s3">&quot; </span><span class="s2">:disabled</span><span class="s3">=</span><span class="s5">false </span><span class="s2">prop</span><span class="s3">=&quot;</span><span class="s1">phoneNumber</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/mu-text-field&gt;</span>
+      <span class="s0">&lt;/mu-form-item&gt;</span>
+    <span class="s0">&lt;/mu-form&gt;</span>
+    <span class="s0">&lt;mu-button </span><span class="s2">class</span><span class="s3">=&quot;submit&quot; </span><span class="s2">color</span><span class="s3">=&quot;#2196f3&quot; </span><span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">submit</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s4">提交修改</span><span class="s0">&lt;/mu-button&gt;</span>
+  <span class="s0">&lt;/mu-container&gt;</span>
+<span class="s0">&lt;/template&gt;</span>
+<span class="s0">&lt;script&gt;</span>
+
+
+<span class="s5">export default </span><span class="s4">{</span>
+  <span class="s7">// name: &quot;StuCenter&quot;,</span>
+
+  <span class="s7">// props:['userInfo'],</span>
+  <span class="s1">data() {</span>
+    <span class="s5">return </span><span class="s4">{</span>
+      <span class="s1">newheadalert:</span><span class="s5">false,</span>
+      <span class="s1">labelPosition: </span><span class="s8">'left'</span><span class="s5">,</span>
+      <span class="s1">head:</span><span class="s8">'data:image/png;base64,'</span><span class="s4">+</span><span class="s5">this</span><span class="s4">.$store.getters.getUser.head</span><span class="s5">,</span>
+      <span class="s1">newhead:</span><span class="s8">''</span><span class="s5">,</span>
+      <span class="s1">newhead64:</span><span class="s5">this</span><span class="s4">.$store.getters.getUser.head</span><span class="s5">,</span>
+      <span class="s1">passwordRules: [</span>
+        <span class="s4">{ validate: (val) =&gt; !!val</span><span class="s5">, </span><span class="s1">message: </span><span class="s8">'必须填写密码'</span><span class="s4">}</span><span class="s5">,</span>
+        <span class="s4">{ validate: (val) =&gt; val.length &gt;= </span><span class="s6">3 </span><span class="s4">&amp;&amp; val.length &lt;= </span><span class="s6">15</span><span class="s5">, </span><span class="s1">message: </span><span class="s8">'密码长度大于3小于15'</span><span class="s4">}</span>
+      <span class="s4">]</span><span class="s5">,</span>
+      <span class="s1">phoneNumberRules:[</span>
+        <span class="s4">{validate: (val)=&gt;!!val</span><span class="s5">,</span><span class="s1">message:</span><span class="s8">'必须填写手机号'</span><span class="s4">}</span>
+      <span class="s4">]</span><span class="s5">,</span>
+      <span class="s1">form: {</span>
+        <span class="s1">token:</span><span class="s5">this</span><span class="s4">.$store.getters.getUser</span><span class="s5">,</span>
+        <span class="s1">password: localStorage.getItem(</span><span class="s8">&quot;password&quot;</span><span class="s4">)</span><span class="s5">,</span>
+        <span class="s1">id: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.id</span><span class="s5">,</span>
+        <span class="s1">name: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.name</span><span class="s5">,</span>
+        <span class="s1">birth: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.birth</span><span class="s5">,</span>
+        <span class="s1">sex: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.sex</span><span class="s5">,</span>
+        <span class="s1">address: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.address</span><span class="s5">,</span>
+        <span class="s1">grade: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.grade</span><span class="s5">,</span>
+        <span class="s1">major: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.major</span><span class="s5">,</span>
+        <span class="s1">position: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.position</span><span class="s5">,</span>
+        <span class="s1">admissionTime: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.admissionTime</span><span class="s5">,</span>
+        <span class="s1">graduationTime: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.graduationTime</span><span class="s5">,</span>
+        <span class="s1">siid:</span><span class="s5">this</span><span class="s4">.$store.getters.getUser.siid</span><span class="s5">,</span>
+        <span class="s1">phoneNumber: </span><span class="s5">this</span><span class="s4">.$store.getters.getUser.phoneNumber</span><span class="s5">,</span>
+        <span class="s1">input: </span><span class="s8">''</span><span class="s5">,</span>
+        <span class="s1">select: </span><span class="s8">''</span><span class="s5">,</span>
+        <span class="s1">date: </span><span class="s8">''</span><span class="s5">,</span>
+        <span class="s1">radio: </span><span class="s8">''</span><span class="s5">,</span>
+        <span class="s1">checkbox: []</span><span class="s5">,</span>
+        <span class="s5">switch</span><span class="s4">: </span><span class="s5">false,</span>
+        <span class="s1">textarea: </span><span class="s8">''</span><span class="s5">,</span>
+      <span class="s4">}</span><span class="s5">,</span>
+      <span class="s4">}</span>
+  <span class="s4">}</span><span class="s5">,</span>
+  <span class="s1">watch:{</span>
+    <span class="s1">newhead(){</span>
+        <span class="s5">var </span><span class="s1">tempImg=</span><span class="s5">new </span><span class="s1">Image()</span><span class="s5">;</span>
+        <span class="s1">tempImg.src=</span><span class="s5">this</span><span class="s4">.newhead</span><span class="s5">;</span>
+      <span class="s1">setTimeout(()=&gt;{</span>
+        <span class="s5">let </span><span class="s1">tempwidth=tempImg.width</span><span class="s5">;</span>
+        <span class="s5">let </span><span class="s1">tempheight=tempImg.height</span><span class="s5">;</span>
+        <span class="s5">if</span><span class="s4">(tempwidth&gt;</span><span class="s6">40</span><span class="s4">||tempheight&gt;</span><span class="s6">40</span><span class="s4">){</span>
+          <span class="s5">this</span><span class="s4">.newhead64=</span><span class="s8">''</span><span class="s5">;</span>
+          <span class="s5">this</span><span class="s4">.newhead=</span><span class="s8">''</span><span class="s5">;</span>
+          <span class="s5">this</span><span class="s4">.newheadalert=</span><span class="s5">true;</span>
+        <span class="s4">}</span>
+      <span class="s4">}</span><span class="s5">,</span><span class="s6">200</span><span class="s4">)</span>
+    <span class="s4">}</span>
+  <span class="s4">}</span><span class="s5">,</span>
+  <span class="s1">methods: {</span>
+    <span class="s1">submit() {</span>
+      <span class="s5">this</span><span class="s4">.$refs.form.validate().then((result)=&gt;{</span>
+        <span class="s5">if</span><span class="s4">(result){</span>
+        <span class="s5">const </span><span class="s1">formData={</span>
+            <span class="s1">id:</span><span class="s5">this</span><span class="s4">.form.id</span><span class="s5">,</span>
+            <span class="s1">password:</span><span class="s5">this</span><span class="s4">.form.password</span><span class="s5">,</span>
+            <span class="s1">name:</span><span class="s5">this</span><span class="s4">.form.name</span><span class="s5">,</span>
+            <span class="s1">birth:</span><span class="s5">this</span><span class="s4">.form.birth</span><span class="s5">,</span>
+            <span class="s1">sex:</span><span class="s5">this</span><span class="s4">.form.sex</span><span class="s5">,</span>
+            <span class="s1">phoneNumber:</span><span class="s5">this</span><span class="s4">.form.phoneNumber</span><span class="s5">,</span>
+            <span class="s1">address:</span><span class="s5">this</span><span class="s4">.form.address</span><span class="s5">,</span>
+            <span class="s1">grade:</span><span class="s5">this</span><span class="s4">.form.grade</span><span class="s5">,</span>
+            <span class="s1">major:</span><span class="s5">this</span><span class="s4">.form.major</span><span class="s5">,</span>
+            <span class="s1">position:</span><span class="s5">this</span><span class="s4">.form.position</span><span class="s5">,</span>
+            <span class="s1">admissionTime: </span><span class="s5">this</span><span class="s4">.form.admissionTime</span><span class="s5">,</span>
+            <span class="s1">graduationTime: </span><span class="s5">this</span><span class="s4">.form.graduationTime</span><span class="s5">,</span>
+            <span class="s1">head:</span><span class="s5">this</span><span class="s4">.newhead64</span><span class="s5">,</span>
+            <span class="s1">siid:</span><span class="s5">this</span><span class="s4">.form.siid</span><span class="s5">,</span>
+          <span class="s4">}</span>
+          <span class="s5">this</span><span class="s4">.$axios.post(</span><span class="s8">'http://localhost:8081/student/stuedit'</span><span class="s5">,</span><span class="s1">formData</span><span class="s5">,</span>
+          <span class="s4">{</span>
+            <span class="s1">headers: {</span>
+              <span class="s8">&quot;Authorization&quot;</span><span class="s4">: localStorage.getItem(</span><span class="s8">&quot;token&quot;</span><span class="s4">)</span>
+            <span class="s4">}</span>
+          <span class="s4">})</span>
+              <span class="s7">// eslint-disable-next-line no-unused-vars</span>
+          <span class="s4">.then((res=&gt;{</span>
+            <span class="s5">this</span><span class="s4">.$router.push({path: </span><span class="s8">'/login'</span><span class="s4">}</span>
+          <span class="s4">)}</span>
+          <span class="s4">))</span>
+        <span class="s4">}</span>
+      <span class="s4">}</span>
+      <span class="s4">)</span>
+    <span class="s4">}</span><span class="s5">,</span>
+    <span class="s1">upload(e) {</span>
+      <span class="s5">this</span><span class="s4">.newheadalert=</span><span class="s5">false</span>
+      <span class="s5">let </span><span class="s1">file=e.target.files[</span><span class="s6">0</span><span class="s4">]</span><span class="s5">;</span>
+      <span class="s5">let </span><span class="s1">url=</span><span class="s8">''</span><span class="s5">;</span>
+      <span class="s5">var </span><span class="s1">reader = </span><span class="s5">new </span><span class="s1">FileReader()</span><span class="s5">;</span>
+      <span class="s1">reader.readAsDataURL(file)</span><span class="s5">;</span>
+      <span class="s5">let </span><span class="s1">that=</span><span class="s5">this;</span>
+        <span class="s1">reader.onload = </span><span class="s5">function </span><span class="s4">() {</span>
+          <span class="s5">var </span><span class="s1">tempImg=</span><span class="s5">new </span><span class="s1">Image()</span><span class="s5">;</span>
+          <span class="s1">tempImg.src=reader.result</span><span class="s5">;</span>
+          <span class="s1">url = </span><span class="s5">this</span><span class="s4">.result.substring(</span><span class="s5">this</span><span class="s4">.result.indexOf(</span><span class="s8">','</span><span class="s4">) + </span><span class="s6">1</span><span class="s4">)</span><span class="s5">;</span>
+         <span class="s7">// console.log(&quot;newhead&quot;+that.newhead64);</span>
+          <span class="s1">setTimeout(()=&gt;{</span>
+          <span class="s1">that.newhead64 = url</span><span class="s5">;</span>
+          <span class="s7">//console.log(&quot;newhead2&quot;+that.newhead64);</span>
+          <span class="s1">that.newhead = </span><span class="s8">'data:image/png;base64,' </span><span class="s4">+ url</span><span class="s5">;</span>
+          <span class="s7">//获取base64格式图片</span>
+          <span class="s4">})</span>
+        <span class="s4">}</span>
+      <span class="s4">}</span>
+  <span class="s4">}</span>
+<span class="s4">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;style </span><span class="s2">scoped</span><span class="s0">&gt;</span>
+<span class="s4">.</span><span class="s0">mu-form </span><span class="s4">{</span>
+  <span class="s2">width</span><span class="s4">: </span><span class="s6">100</span><span class="s4">%</span><span class="s5">;</span>
+  <span class="s2">max-width</span><span class="s4">: </span><span class="s6">600</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">margin-left</span><span class="s4">: </span><span class="s6">209</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">margin-right</span><span class="s4">: </span><span class="s6">209</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">margin-bottom</span><span class="s4">: </span><span class="s6">100</span><span class="s3">px</span><span class="s5">;</span>
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">submit</span><span class="s4">{</span>
+  <span class="s2">position</span><span class="s4">: </span><span class="s3">relative</span><span class="s5">;</span>
+  <span class="s2">margin-bottom</span><span class="s4">: </span><span class="s6">70</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">margin-left</span><span class="s4">: </span><span class="s6">750</span><span class="s3">px</span><span class="s5">;</span>
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">upload</span><span class="s4">{</span>
+  <span class="s2">position</span><span class="s4">: </span><span class="s3">relative</span><span class="s5">;</span>
+  <span class="s2">margin-left</span><span class="s4">: </span><span class="s6">90</span><span class="s4">%</span><span class="s5">;</span>
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">radio_right</span><span class="s4">{</span>
+  <span class="s2">position</span><span class="s4">: </span><span class="s3">relative</span><span class="s5">;</span>
+  <span class="s2">margin-left</span><span class="s4">: </span><span class="s6">10</span><span class="s4">%</span><span class="s5">;</span>
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">input-button</span><span class="s4">{</span>
+  <span class="s2">position</span><span class="s4">: </span><span class="s3">absolute</span><span class="s5">;</span>
+  <span class="s2">left</span><span class="s4">:-</span><span class="s6">5</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">top</span><span class="s4">:-</span><span class="s6">5</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">height</span><span class="s4">: </span><span class="s6">36</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">width</span><span class="s4">: </span><span class="s6">88</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">cursor</span><span class="s4">: </span><span class="s3">pointer</span><span class="s5">;</span>
+  <span class="s7">/*filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image); !* 该对象只用来在IE下获得图片的原始尺寸，无其它用途 *!*/</span>
+  <span class="s7">/*height: 1px;*/</span>
+  <span class="s7">/*visibility:hidden;*/</span>
+  <span class="s2">opacity</span><span class="s4">: </span><span class="s6">0</span><span class="s5">;</span>
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">falsebutton</span><span class="s4">{</span>
+  <span class="s2">position</span><span class="s4">: </span><span class="s3">absolute</span><span class="s5">;</span>
+  <span class="s2">top</span><span class="s4">: -</span><span class="s6">15</span><span class="s3">px</span><span class="s5">;</span>
+  <span class="s2">left</span><span class="s4">: -</span><span class="s6">15</span><span class="s3">px</span><span class="s5">;</span>
+
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">conImage</span><span class="s4">{</span>
+
+<span class="s4">}</span>
+<span class="s0">&lt;/style&gt;</span></pre>
+</body>
+</html>

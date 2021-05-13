@@ -1,0 +1,167 @@
+<html>
+<head>
+<title>StuMain.vue</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #bababa;}
+.s3 { color: #a5c261;}
+.s4 { color: #a9b7c6;}
+.s5 { color: #6a8759;}
+.s6 { color: #cc7832;}
+.s7 { color: #808080;}
+.s8 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table BGCOLOR="#606060" CELLPADDING=5 CELLSPACING=0 COLS=1 WIDTH="100%" >
+<tr><td><center>
+<font color="#000000" face="Arial, Helvetica">
+StuMain.vue</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;template&gt;</span>
+<span class="s0">&lt;div&gt;</span>
+  <span class="s0">&lt;mu-appbar </span><span class="s2">style</span><span class="s3">=&quot;width: 100%;&quot; </span><span class="s2">color</span><span class="s3">=primary</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;mu-button </span><span class="s2">icon slot</span><span class="s3">=&quot;left&quot; </span><span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">open = !open</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;mu-icon </span><span class="s2">value</span><span class="s3">=&quot;menu&quot; </span><span class="s2">size</span><span class="s3">=&quot;35&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;/mu-icon&gt;</span>
+    <span class="s0">&lt;/mu-button&gt;</span>
+    <span class="s0">&lt;mu-drawer </span><span class="s2">:open.sync</span><span class="s3">=&quot;</span><span class="s1">open</span><span class="s3">&quot; </span><span class="s2">:docked</span><span class="s3">=&quot;</span><span class="s1">docked</span><span class="s3">&quot; </span><span class="s2">:right</span><span class="s3">=&quot;</span><span class="s1">position === </span><span class="s5">'right'</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;mu-list&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">主页</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">新生报到</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">奖项申请</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">医保报销</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">我的工单</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">个人奖惩</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item  </span><span class="s2">@click</span><span class="s3">=&quot;</span><span class="s1">open = </span><span class="s6">false</span><span class="s3">&quot; </span><span class="s2">button</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">关闭</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+      <span class="s0">&lt;/mu-list&gt;</span>
+    <span class="s0">&lt;/mu-drawer&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">:src</span><span class="s3">=&quot;</span><span class="s1">schlogo</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;Schlogo&quot; </span><span class="s2">slot</span><span class="s3">=&quot;left&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;mu-menu </span><span class="s2">slot</span><span class="s3">=&quot;right&quot; </span><span class="s2">class</span><span class="s3">=&quot;usercenter&quot;</span><span class="s0">&gt;</span>
+      <span class="s0">&lt;mu-button </span><span class="s2">flat</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-avatar&gt;</span>
+          <span class="s0">&lt;img </span><span class="s2">:src</span><span class="s3">=&quot;</span><span class="s1">head</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;/mu-avatar&gt;</span>
+      <span class="s0">&lt;/mu-button&gt;</span>
+      <span class="s0">&lt;mu-list </span><span class="s2">slot</span><span class="s3">=&quot;content&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button @click</span><span class="s3">=&quot;</span><span class="s1">stucenter</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-content&gt;</span>
+            <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">个人中心</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+          <span class="s0">&lt;/mu-list-item-content&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+        <span class="s0">&lt;mu-list-item </span><span class="s2">button @click</span><span class="s3">=&quot;</span><span class="s1">logout</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+          <span class="s0">&lt;mu-list-item-content&gt;</span>
+            <span class="s0">&lt;mu-list-item-title&gt;</span><span class="s4">退出登录</span><span class="s0">&lt;/mu-list-item-title&gt;</span>
+          <span class="s0">&lt;/mu-list-item-content&gt;</span>
+        <span class="s0">&lt;/mu-list-item&gt;</span>
+      <span class="s0">&lt;/mu-list&gt;</span>
+    <span class="s0">&lt;/mu-menu&gt;</span>
+  <span class="s0">&lt;/mu-appbar&gt;</span>
+<span class="s0">&lt;div&gt;</span>
+<span class="s7">&lt;!--  &lt;router-view&gt;&lt;/router-view&gt;--&gt;</span>
+  <span class="s0">&lt;div </span><span class="s2">v-if</span><span class="s3">=&quot;</span><span class="s1">userfunction===</span><span class="s8">1</span><span class="s3">&quot;</span><span class="s0">&gt; &lt;StuCenter&gt;&lt;/StuCenter&gt;&lt;/div&gt;</span>
+  <span class="s0">&lt;div </span><span class="s2">v-if</span><span class="s3">=&quot;</span><span class="s1">userfunction===</span><span class="s8">0</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s4">Nothing for now</span><span class="s0">&lt;/div&gt;</span>
+<span class="s7">&lt;!--  头像加载完成，说明已经获取到session数值，可以加载子组件--&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/template&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+<span class="s6">import </span><span class="s1">schlogo </span><span class="s6">from </span><span class="s5">&quot;D:/VUE/muse_test/src/assets/images/schlogo.png&quot;</span><span class="s6">;</span>
+<span class="s6">import </span><span class="s1">ViewAvatar </span><span class="s6">from </span><span class="s5">'view-avatar'</span><span class="s6">;</span>
+<span class="s6">import </span><span class="s1">StuCenter </span><span class="s6">from </span><span class="s5">&quot;@/components/StuMain/StuCenter&quot;</span><span class="s6">;</span>
+<span class="s6">import </span><span class="s1">Loading </span><span class="s6">from </span><span class="s5">'muse-ui-loading'</span><span class="s6">;</span>
+<span class="s6">import </span><span class="s1">Vue </span><span class="s6">from </span><span class="s5">'vue'</span><span class="s6">;</span>
+<span class="s6">import </span><span class="s5">'muse-ui-loading/dist/muse-ui-loading.css'</span><span class="s6">; </span><span class="s7">// load css</span>
+<span class="s1">Vue.use(Loading)</span>
+
+<span class="s6">export default </span><span class="s4">{</span>
+  <span class="s1">components: {StuCenter}</span><span class="s6">,</span>
+<span class="s7">// name: &quot;StuMain&quot;</span>
+  <span class="s1">data(){</span>
+    <span class="s6">return</span><span class="s4">{</span>
+      <span class="s1">components: {</span>
+        <span class="s1">viewAvatar:ViewAvatar</span><span class="s6">,</span>
+        <span class="s1">stucenter:StuCenter</span>
+      <span class="s4">}</span><span class="s6">,</span>
+      <span class="s1">maincontainer:</span><span class="s5">''</span><span class="s6">,</span>
+      <span class="s1">schlogo</span><span class="s6">,</span>
+      <span class="s1">docked: </span><span class="s6">false,</span>
+      <span class="s1">open: </span><span class="s6">false,</span>
+      <span class="s1">position: </span><span class="s5">'left'</span><span class="s6">,</span>
+      <span class="s1">finished:</span><span class="s6">true,</span>
+      <span class="s1">head:</span><span class="s5">''</span><span class="s6">,</span>
+      <span class="s1">userfunction:</span><span class="s5">'1'</span>
+      <span class="s7">// userInfo:''</span>
+    <span class="s4">}</span>
+  <span class="s4">}</span><span class="s6">,</span>
+  <span class="s7">// computed:{</span>
+  <span class="s7">//   head(){</span>
+  <span class="s7">//     return this.$store.getters.getUser.head;</span>
+  <span class="s7">//   }</span>
+  <span class="s7">// },</span>
+  <span class="s1">methods:{</span>
+    <span class="s1">logout() {</span>
+      <span class="s6">const </span><span class="s1">_this = </span><span class="s6">this</span>
+      <span class="s6">this</span><span class="s4">.$axios.get(</span><span class="s5">'http://localhost:8081/logout'</span><span class="s6">, </span><span class="s4">{</span>
+        <span class="s1">headers: {</span>
+          <span class="s5">&quot;Authorization&quot;</span><span class="s4">: localStorage.getItem(</span><span class="s5">&quot;token&quot;</span><span class="s4">)</span>
+        <span class="s4">}</span>
+        <span class="s7">// eslint-disable-next-line no-unused-vars</span>
+      <span class="s4">}).then((res) =&gt; {</span>
+        <span class="s1">_this.$store.commit(</span><span class="s5">'REMOVE_INFO'</span><span class="s4">)</span>
+        <span class="s1">_this.$router.push(</span><span class="s5">'/login'</span><span class="s4">)</span>
+        <span class="s7">// localStorage.clear();</span>
+        <span class="s1">location.reload()</span><span class="s6">;</span>
+      <span class="s4">})</span><span class="s6">;</span>
+    <span class="s4">}</span><span class="s6">,</span>
+    <span class="s1">stucenter(){</span>
+     <span class="s7">// this.maincontainer=StuCenter;</span>
+      <span class="s6">this</span><span class="s4">.userfunction=</span><span class="s8">1</span><span class="s6">;</span>
+    <span class="s4">}</span><span class="s6">,</span>
+    <span class="s1">InitData(){</span>
+      <span class="s1">setTimeout(() =&gt; {</span>
+        <span class="s6">this</span><span class="s4">.head =</span><span class="s5">'data:image/png;base64,'</span><span class="s4">+</span><span class="s6">this</span><span class="s4">.$store.state.userInfo.head</span><span class="s6">;</span><span class="s7">//初始化头像，添加延时保证数据注入</span>
+        <span class="s7">// this.userInfo=JSON.stringify(this.$store.state.userInfo);</span>
+      <span class="s4">}</span><span class="s6">, </span><span class="s8">10</span><span class="s4">)</span>
+    <span class="s4">}</span><span class="s6">,</span>
+  <span class="s4">}</span><span class="s6">,</span>
+
+  <span class="s1">mounted() {</span>
+   <span class="s7">//</span>
+   <span class="s6">this</span><span class="s4">.InitData()</span><span class="s6">;</span>
+ <span class="s4">}</span>
+
+<span class="s4">}</span>
+
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;style </span><span class="s2">scoped</span><span class="s0">&gt;</span>
+<span class="s4">.</span><span class="s0">usercenter</span><span class="s4">{</span>
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">Schlogo</span><span class="s4">{</span>
+
+<span class="s4">}</span>
+<span class="s4">.</span><span class="s0">loading-wrap </span><span class="s4">{</span>
+  <span class="s2">height</span><span class="s4">: </span><span class="s8">300</span><span class="s3">px</span><span class="s6">;</span>
+  <span class="s2">position</span><span class="s4">: </span><span class="s3">relative</span><span class="s6">;</span>
+<span class="s4">}</span>
+<span class="s0">&lt;/style&gt;</span></pre>
+</body>
+</html>
