@@ -4,7 +4,7 @@
       <mu-form-item label="查询学生奖惩信息：">
         <mu-text-field v-model="searchmodel.searchid"></mu-text-field>
         <mu-button color="blue" @click="searchData">查询</mu-button>
-        <router-link :to="{name:'SubmitRP',params: {stuid:this.searchmodel.searchid}}"><mu-button v-if="this.hostid<10000&&this.searchmodel.searchid!==''" color="red">新增处罚</mu-button></router-link>
+        <router-link :to="{name:'SubmitRP',query: {stuid:this.searchmodel.searchid,userid:$store.getters.getUser.id,usertoken:$store.getters.getToken}}" tag="a" target="_blank"><mu-button v-if="this.hostid<10000&&this.searchmodel.searchid!==''" color="red">新增处罚</mu-button></router-link>
       </mu-form-item>
     </mu-form>
     <mu-data-table :columns="columns" :data="list" :sort.sync="sort" border class="table" stripe @sort-change="handleSortChange">
@@ -24,7 +24,7 @@
 
         <td class="is-center">
           <mu-button v-if="hostid===100||hostid===5" color="red" @click="deleteData(scope.row.id)">删除</mu-button>
-         <router-link :to="{name:'HandleRP',params:{prId:scope.row.id}}"><mu-button v-if="hostid===scope.row.stuID||hostid===scope.row.adminID" class="fordetail" color="blue">详情</mu-button></router-link>
+         <router-link  :to="{name:'HandleRP',query:{prId:scope.row.id,userid:$store.getters.getUser.id,usertoken:$store.getters.getToken}}" tag="a" target="_blank"><mu-button v-if="hostid===scope.row.stuID||hostid===scope.row.adminID" class="fordetail" color="blue">详情</mu-button></router-link>
           <!--          <router-link :to="{name:'HandleIssue',params:{workorderId:scope.row.id}}"><mu-button color="blue" class="fordetail">查看</mu-button></router-link>-->
         </td>
         <!--      <mu-button></mu-button>-->
@@ -111,7 +111,7 @@ name: "MyRP",
       )
     },
 
-    InitData(current){
+    MyRPInitData(current){
       let _this=this;
       setTimeout(() => {
         if (this.$store.getters.getUser.id > 9999) {
@@ -150,14 +150,14 @@ name: "MyRP",
   },
   watch: {
     current() {
-      this.InitData(this.current);
+      this.MyRPInitData(this.current);
       if(this.searchmodel.searchid!=='') {
         this.searchData(this.current);
       }
-    }
+    },
   },
-      mounted() {
-        this.InitData(this.current);
+  mounted() {
+    this.MyRPInitData(this.current);
   }
 }
 </script>

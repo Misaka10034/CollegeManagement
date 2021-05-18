@@ -4,9 +4,6 @@
   <mu-container>
     <mu-form ref="PR" :model="PR" class="mainform">
       <mu-form-item>
-        <mu-button style="color: #016ad7" @click="back">返回</mu-button>
-      </mu-form-item>
-      <mu-form-item>
         <h2 style="color: black">当前记录编号：</h2><h2 style="color: black"><div v-text="PR.id"></div></h2>
       </mu-form-item>
       <mu-divider></mu-divider>
@@ -26,7 +23,7 @@
         <div v-if="PR.certificateImage===''"><h3 style="color: red">学生未上传证书</h3></div>
         <div v-else-if="PR.certificateImage!==''"><img :src="'data:image/png;base64,'+PR.certificateImage" class="image"></div>
       </mu-form-item>
-      <mu-form-item v-if="PR.finished!==1&&$store.getters.getUser.id<10000" class="handle">
+      <mu-form-item v-if="PR.finished===0&&this.$route.query.userid<10000" class="handle">
         <mu-button class="passbutton" color="blue" @click="passPR">通过</mu-button>
         <mu-button class="refusebutton" color="red" @click="refusePR">不通过</mu-button>
       </mu-form-item>
@@ -37,7 +34,7 @@
 <script>
 export default {
 name: "HandleRP",
-  inject:["reload"],
+  inject:["reload","MyRPInitData"],
   data(){
   return{
     PR: {
@@ -50,23 +47,25 @@ name: "HandleRP",
       stuID:'',
       finished:'',
     },
+    token:'',
   }
   },
   methods:{
   InitData(){
-      const prId=this.$route.params.prId;
-      this.$axios.get('http://localhost:8081/getdetailedpr/'+prId).then((res)=>
-      {
-        this.PR=res.data.data;
+    setTimeout(()=> {
+      const prId = this.$route.query.prId;
+      this.token=this.$route.query.usertoken;
+      console.log(this.token)
+      this.$axios.get('http://localhost:8081/getdetailedpr/' + prId).then((res) => {
+        this.PR = res.data.data;
       })
+    },100)
   },
-    back(){
-      this.$router.go(-1);
-    },
+
     passPR(){
       this.$axios.post('http://localhost:8081/adoptreward/'+this.PR.id,'',{
         headers: {
-          "Authorization": this.$store.getters.getToken
+          "Authorization": this.token
         }
       }).then(res=>{
           if(res.data.code===200){
@@ -79,12 +78,13 @@ name: "HandleRP",
     refusePR(){
       this.$axios.post('http://localhost:8081/refusereward/'+this.PR.id,'',{
         headers: {
-          "Authorization": this.$store.getters.getToken
+          "Authorization": this.token
         }
       }).then(res=>{
         if(res.data.code===200){
           this.$alert("操作成功");
           this.reload();
+          this.MyRPInitData(1);
         }
         else this.$alert("操作失败");
       })
@@ -100,6 +100,7 @@ name: "HandleRP",
 .reason{
   height: 300px;
   width: 600px;
+  resize: none;
 }
 .image{
   height: 300px;

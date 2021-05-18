@@ -35,7 +35,7 @@ axios.interceptors.response.use(response => {
             router.push({
                 path: '/login'
             });
-            error.message = '请重新登录';
+            error.message = 'Token已失效，请重新登录';
         }
         else if (error.response.status === 403) {
             error.message = '权限不足，无法访问';

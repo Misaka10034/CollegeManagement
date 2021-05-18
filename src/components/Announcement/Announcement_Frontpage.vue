@@ -5,7 +5,7 @@
         <mu-list-item-content>
           <div  v-for="announcement in announcements" :key="announcement.id">
           <mu-list-item-title  style="height: 72px ">
-            <router-link :to="{name:'Announcement',params:{announcementId:announcement.id}}" style="color: #016ad7">
+            <router-link :to="{name:'Announcement',query:{announcementId:announcement.id}}" style="color: #016ad7"  tag="a" target="_blank">
               <h1>{{announcement.title}}</h1>
             </router-link>
           </mu-list-item-title>

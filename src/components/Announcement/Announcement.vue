@@ -1,6 +1,5 @@
 <template><!--信息公告-->
 <mu-container>
-  <mu-button class="back" @click="back">返回</mu-button>
 <div class="announcement_container">
   <div class="detailedannouncement">
     <h1>{{announcement.title}}</h1>
@@ -30,7 +29,8 @@ data(){
 },
   methods:{
   getannouncement(){
-    const announcementId=this.$route.params.announcementId;
+    const announcementId=this.$route.query.announcementId;
+    console.log(announcementId)
     const _this=this;
     this.$axios.get('http://localhost:8081/announcementdetailed/'+announcementId).then((res)=>
         {
@@ -53,7 +53,5 @@ data(){
 </script>
 
 <style scoped>
-.back{
-  color: #016ad7;
-}
+
 </style>

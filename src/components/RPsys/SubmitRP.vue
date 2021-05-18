@@ -18,7 +18,7 @@
       </mu-form-item>
       <mu-form-item style="margin-left: 60%">{{remnant}}/500</mu-form-item>
       <mu-divider></mu-divider>
-      <mu-form-item v-if="this.$store.getters.getUser.id>9999" class="upload" label="请上传证书/奖状图片:">
+      <mu-form-item v-if="this.userid===undefined" class="upload" label="请上传证书/奖状图片:">
         <div>
           <mu-button class="falsebutton" color="blue">上传图片</mu-button>
           <input id="file" accept="image/*" class="input-button" type="file" @change="upload($event)"/>
@@ -47,6 +47,8 @@ name: "RPSubmit",
         stuID:'',
         finished:'',
       },
+      userid:'',
+      usertoken:'',
     }
   },
   methods:{
@@ -55,16 +57,20 @@ name: "RPSubmit",
       this.remnant = txtVal;
     },
     submit(){
-      if(this.$store.getters.getUser.id<10000&&this.$store.getters.getUser.id>99){
-          this.PR.stuID=this.$route.params.stuid;
-          this.PR.adminID=this.$store.getters.getUser.id;
+      if(this.userid===''){
+        this.userid=this.$store.getters.getUser.id;
+        this.usertoken=this.$store.getters.getToken;
+      }
+      if(this.userid<10000&&this.userid>99){
+          this.PR.stuID=this.$route.query.stuid;
+          this.PR.adminID=this.userid;
           this.PR.rewardorPunish=1;
           this.PR.finished=1;
           this.$refs.PR.validate().then((result) => {
             if (result) {
               this.$axios.post('http://localhost:8081/setpunish/',this.PR, {
                 headers: {
-                  "Authorization": this.$store.getters.getToken
+                  "Authorization": this.usertoken
                 }
               }).then((res) => {
                 if (res.data.code === 200) {
@@ -76,7 +82,7 @@ name: "RPSubmit",
           })
       }
       else{
-        this.PR.stuID=this.$store.getters.getUser.id;
+        this.PR.stuID=this.userid;
         this.PR.adminID=100;
         this.PR.rewardorPunish=0;
         this.PR.finished=0;
@@ -84,7 +90,7 @@ name: "RPSubmit",
           if (result) {
             this.$axios.post('http://localhost:8081/submitreward/' ,this.PR, {
               headers: {
-                "Authorization": this.$store.getters.getToken
+                "Authorization": this.usertoken
               }
             }).then((res) => {
               if (res.data.code === 200) {
@@ -114,6 +120,11 @@ name: "RPSubmit",
         })
       }
     }
+  },
+  created() {
+    this.userid=this.$route.query.userid;
+    console.log(this.userid)
+    this.usertoken=this.$route.query.usertoken;
   }
 }
 </script>
@@ -122,6 +133,7 @@ name: "RPSubmit",
 .textinput{
   height: 300px;
   width: 600px;
+  resize: none;
 }
 .mainform{
   margin-top: 3%;
