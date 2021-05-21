@@ -36,7 +36,11 @@
     <img :src="schlogo" class="Schlogo" slot="left">
 
     <mu-menu slot="right">
-      <mu-button flat><mu-avatar></mu-avatar></mu-button>
+      <mu-button flat>
+        <mu-avatar>
+        <img :src="head">
+      </mu-avatar>
+      </mu-button>
       <mu-list slot="content">
         <mu-list-item button  @click="admincenter">
           <mu-list-item-content>
@@ -82,6 +86,7 @@ export default {
 // name: "AdminMain"
   data(){
     return{
+      head:'',
       schlogo,
       docked: false,
       open: false,

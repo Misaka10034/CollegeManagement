@@ -23,12 +23,12 @@ name: "AddStu",
     this.$axios.post('http://localhost:8081/addstu/'+this.num
     ,{},{
       headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": this.$store.getters.getToken
           }}
     )
           // eslint-disable-next-line no-unused-vars
         .then((res)=>{
-          alert("操作成功");//后面再改
+          this.$alert("操作成功");
     })
   }
   }

@@ -32,7 +32,10 @@
     <img :src="schlogo" class="Schlogo" slot="left">
 
     <mu-menu slot="right">
-      <mu-button flat><mu-avatar></mu-avatar></mu-button>
+      <mu-button flat>
+        <mu-avatar>
+        <img :src="head">
+      </mu-avatar></mu-button>
       <mu-list slot="content">
         <mu-list-item button @click="teachercenter">
           <mu-list-item-content>
@@ -70,6 +73,7 @@ export default {
 // name: "TeacherMain"
   data(){
     return{
+      head:'',
       registered:'',
       schlogo,
       docked: false,
@@ -116,6 +120,7 @@ methods:{
     setTimeout(() => {
       const _this=this;
       this.head ='data:image/png;base64,'+this.$store.state.userInfo.head;//初始化头像，添加延时保证数据注入
+      console.log(this.head)
       this.registered=this.$store.state.userInfo.registered;
       if(_this.registered){
         _this.userfunction=0;

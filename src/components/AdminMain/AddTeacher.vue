@@ -21,7 +21,7 @@ name: "AddTeacher",
       this.$axios.post('http://localhost:8081/addtea/'+this.num
           ,{},{
             headers: {
-              "Authorization": localStorage.getItem("token")
+              "Authorization": this.$store.getters.getToken
             }}
       )
           // eslint-disable-next-line no-unused-vars

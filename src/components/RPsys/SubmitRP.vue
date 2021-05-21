@@ -57,7 +57,7 @@ name: "RPSubmit",
       this.remnant = txtVal;
     },
     submit(){
-      if(this.userid===''){
+      if(this.userid===undefined){
         this.userid=this.$store.getters.getUser.id;
         this.usertoken=this.$store.getters.getToken;
       }
@@ -82,6 +82,7 @@ name: "RPSubmit",
           })
       }
       else{
+        console.log(this.$store.getters.getToken)
         this.PR.stuID=this.userid;
         this.PR.adminID=100;
         this.PR.rewardorPunish=0;
